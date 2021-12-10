@@ -115,10 +115,11 @@ A quick overview of the nicest features you can use to improve your code.
 
   ```js
     // Print online users
-    getEmails(['176', '175'])
-      .catch(console.error)
-      .then(console.log)
-      .finally(() => console.log('Mi trabajo ha terminado.'))
+    const promise = getEmails(['176', '175'])
+
+    promise.then(console.log);
+    promise.catch(console.error)
+    promise.finally(() => console.log('Mi trabajo ha terminado.'))
   ```
 
 </div>
