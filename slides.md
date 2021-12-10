@@ -271,7 +271,7 @@ if (blog.thumbnail && blog.thumbnail.url) {
 <div class="-mb-1">ESNext</div>
 
 ```js
-let blogThumbnailURL = blog.thumbnail?.url ?? '/default-thumbnail.webp';
+const blogThumbnailURL = blog.thumbnail?.url ?? '/default-thumbnail.webp'; // we can use const!
 ```
 
 </div>
