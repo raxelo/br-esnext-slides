@@ -236,11 +236,11 @@ console.log({ age, name, favouriteGame }); // { age: 19, name: 'Lucas', favourit
 
 // And re-declare (non-const variables)
 [age, name, favouriteGame] = [20, 'Lucas', 'Minecraft'];
-console.log({ age, name }); // { age: 20, name: 'Lucas', favouriteGame: 'Minecraft' }
+console.log({ age, name, favouriteGame }); // { age: 20, name: 'Lucas', favouriteGame: 'Minecraft' }
 
 // By the way, the spread operator is also available on arrays:
 const arrayOfRandomThings = ['🍡', '🌀', '🐙', ...randomArray];
-//  ['🍡', '🌀', '🐙', 19, 'Lucas']
+//  ['🍡', '🌀', '🐙', 19, 'Lucas', 'Rocket League']
 ```
 
 </div>
