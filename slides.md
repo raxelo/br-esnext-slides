@@ -280,14 +280,14 @@ let blogThumbnailURL = blog.thumbnail?.url ?? '/default-thumbnail.webp';
 
 ---
 
-<div class="relative -top-8">
+<div class="relative" style="margin-top: -2rem">
 
 #### Array Methods
 And why you should use them more often.
 
 </div>
 
-<div class="transform scale-65 origin-top -mt-12">
+<div class="origin-top" style="transform: scale(0.65); margin-top: -1.25rem;">
 
 ```js {all|1-7|9-19|20-35|36-42|all}
 const users = [
