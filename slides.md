@@ -26,31 +26,31 @@ A quick overview of the nicest features you can use to improve your code.
 <div class="transform scale-75 origin-top">
   Generic Example
 
-  ```js
-    async function getOnlineUsers() {
-      // 👉 async functions always return a promise.
+```js {all|4-5|7-8|11-12|15-19|all}
+  async function getOnlineUsers() {
+    // 👉 async functions always return a promise.
 
-      // 📄 If we return a value, it will be passed as Promise.resolve(value).
-      if (store.hideOnlineUsers()) return [];
+    // 📄 If we return a value, it will be passed as Promise.resolve(value).
+    if (store.hideOnlineUsers()) return [];
 
-      // ❌ If we throw an error, it will be passed as Promise.reject(error).
-      if (store.isOffline()) throw new Error("❌ We're offline!");
+    // ❌ If we throw an error, it will be passed as Promise.reject(error).
+    if (store.isOffline()) throw new Error("❌ We're offline!");
 
 
-      // We can use the 'await' keyword to wait for asynchronous code to run ⏱️.
-      const storeId = await getStoreIdAsynchronously(); // without the 'await', storeId would be a promise.
-      
+    // We can use the 'await' keyword to wait for asynchronous code to run ⏱️.
+    const storeId = await getStoreIdAsynchronously(); // without the 'await', storeId would be a promise.
+    
 
-      // We can return promises and they will be chained to this async function.
-      return https.get.promise({
-          url: 'https://www.testwebsite.com',
-          headers: { storeId } // same as { storeId: storeId }
-      })
-    }
+    // We can return promises and they will be chained to this async function.
+    return https.get.promise({
+        url: 'https://www.testwebsite.com',
+        headers: { storeId } // same as { storeId: storeId }
+    })
+  }
 
-    // Print online users
-    getOnlineUsers.then(console.log); // same as getOnlineUsers.then(result => console.log(result));
-  ```
+  // Print online users
+  getOnlineUsers.then(console.log); // same as getOnlineUsers.then(result => console.log(result));
+```
 
 </div>
 
@@ -63,43 +63,43 @@ A quick overview of the nicest features you can use to improve your code.
 <div class="transform scale-75 origin-top -mt-4">
   NetSuite example
 
-  ```js
-    // Given an array of user IDs, returns an array of their emails.
-    // ⚠️ Runs a lookupField for every ID, asynchronously.
-    async function getEmails(userIds) {
-      
-      // ⌛ This line will execute almost immediately, because the data fetching is asynchronous.
-      const promises = userIds.map(id => createLookupFieldPromise(id))
-      
-      // There are many ways to return the results...
+```js {all|5-6,24-30|8-12|14-21|all}
+  // Given an array of user IDs, returns an array of their emails.
+  // ⚠️ Runs a lookupField for every ID, asynchronously.
+  async function getEmails(userIds) {
+    
+    // ⌛ This line will execute almost immediately, because the data fetching is asynchronous.
+    const promises = userIds.map(id => createLookupFieldPromise(id))
+    
+    // There are many ways to return the results...
 
-      // Promise.all: this will fail if ANY of the promises fail.
-      const results = await Promise.all(promises)
-      return results.map(result => result.email)
+    // Promise.all: this will fail if ANY of the promises fail.
+    const results = await Promise.all(promises)
+    return results.map(result => result.email)
 
-      // Promise.allSettled: this will return failed and successful promises in an array of results
-      // results can have the following form: { status: 'fulfilled' | 'rejected', value?: any, reason?: string }
-      const allResults = await Promise.allSettled(promises)
+    // Promise.allSettled: this will return failed and successful promises in an array of results
+    // results can have the following form: { status: 'fulfilled' | 'rejected', value?: any, reason?: string }
+    const allResults = await Promise.allSettled(promises)
 
-      // Return all emails from fulfilled promises.
-      return allResult
-        .filter(result => result.status === 'fulfilled')
-        .map(result => result.value.email)
-    }
+    // Return all emails from fulfilled promises.
+    return allResult
+      .filter(result => result.status === 'fulfilled')
+      .map(result => result.value.email)
+  }
 
-    function createLookupFieldPromise(userId) {
-      return NSearch.lookupFields.promise({
-        type: NSearch.Type.CUSTOMER,
-        id: userId,
-        columns: 'email'
-      })
-    }
+  function createLookupFieldPromise(userId) {
+    return NSearch.lookupFields.promise({
+      type: NSearch.Type.CUSTOMER,
+      id: userId,
+      columns: 'email'
+    })
+  }
 
-    // Print online users
-    getEmails(['176', '175']).then(console.log); // same as getOnlineUsers.then(result => console.log(result));
-    // prints ['lucas@brokenrubik.co', 'federico@brokenrubik.co']
-    // the data is fetched in parallel.
-  ```
+  // Print online users
+  getEmails(['176', '175']).then(console.log); // same as getOnlineUsers.then(result => console.log(result));
+  // prints ['lucas@brokenrubik.co', 'federico@brokenrubik.co']
+  // the data is fetched in parallel.
+```
 
 </div>
 
@@ -191,7 +191,7 @@ searchRecentSalesOrders('06/27/2021') // returns sales orders after '06/27/2021'
 
 <div class="transform scale-75 origin-top">
 
-```js
+```js {all|1-14|all|15-16|18-20|all}
 function fillDefaultValues(settings = {}) {
   const defaultValues = {
     maximumPlayers: 10,
@@ -224,7 +224,7 @@ const { roomName } = fillDefaultValues();
 
 <div class="transform scale-75 origin-top">
 
-```js
+```js {all|3-7|9-11|13-15|all}
 // I couldn't come up with an interesting example 😔
 
 const randomArray = [19, 'Lucas', 'Rocket League'];
@@ -248,6 +248,7 @@ const arrayOfRandomThings = ['🍡', '🌀', '🐙', ...randomArray];
 ---
 
 # Optional chaining
+And nullish coalescing (?? operator)
 
 <div class="flex flex-col gap-4">
 
@@ -279,12 +280,16 @@ let blogThumbnailURL = blog.thumbnail?.url ?? '/default-thumbnail.webp';
 
 ---
 
-## Array Methods
+<div class="relative -top-8">
+
+#### Array Methods
 And why you should use them more often.
 
-<div class="transform scale-55 origin-top -mt-3">
+</div>
 
-```js {all|16|all}
+<div class="transform scale-65 origin-top -mt-12">
+
+```js {all|1-7|9-19|20-35|36-42|all}
 const users = [
   { name: "Lucas", favoriteEmojis: ["🐙", "✨", "👀"], points: "50" },
   { name: "Ivan", favoriteEmojis: ["😆", "🚀", "❤️"], points: "50" },
@@ -353,7 +358,7 @@ Template strings and replaceAll
 <div>
 
 ```js 
-// Since ES6 we have string templates, allowing us to build complex strings more easily, 
+// Since ES6 we have template strings, allowing us to build complex strings more easily, 
 // allowing us to break lines and have special characters. 
 function generateMailBody(user) {
   return `Hi ${user.name},
